@@ -11,7 +11,32 @@ const favoriteBlog = blogs => {
 }
 
 const mostBlogs = blogs => {
+	const tempList = []
+	blogs.forEach(b => {
+		const findOne = tempList.find(f => b.author === f.author)
+		if(findOne){
+			findOne.blogs = findOne.blogs +1
+		}else {
+			tempList.push({ author: b.author, blogs : 1})
+		}
+	})
 
+	const biggestCount = Math.max(...tempList.map(t => t.blogs))
+	return tempList.find(b => b.blogs === biggestCount)
 }
 
-module.exports = { dummy, totalLikes, favoriteBlog, mostBlogs }
+const mostTotalLikes = blogs => {
+	const tempList = []
+	blogs.forEach(b => {
+		const findOne = tempList.find(f => f.author === b.author)
+		if(findOne){
+			findOne.likes = findOne.likes + b.likes
+		}else {
+			tempList.push({ author: b.author, likes: b.likes })
+		}
+	})
+	const biggestLikes = Math.max(...tempList.map(l => l.likes))
+	return tempList.find(f => f.likes === biggestLikes)
+}
+
+module.exports = { dummy, totalLikes, favoriteBlog, mostBlogs, mostTotalLikes }

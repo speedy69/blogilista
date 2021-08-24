@@ -1,6 +1,6 @@
 const listHelper = require('../utils/list_helper')
 
-describe('mos likes and most blogs', () => {
+describe('most likes and most blogs', () => {
 	const listWithSixBlog = [
 		{
 			_id: '5a422a851b54a676234d17f7',
@@ -52,6 +52,11 @@ describe('mos likes and most blogs', () => {
 		}  
 	]
 
+	test('when list has six blog count total likes', () => {
+		const result = listHelper.totalLikes(listWithSixBlog)
+		expect(result).toBe(36)
+	})
+
 	test('when list has six blog biggest likes are', () => {
 		const result = listHelper.favoriteBlog(listWithSixBlog)
 		expect(result).toEqual({
@@ -64,6 +69,12 @@ describe('mos likes and most blogs', () => {
 
 	test('when list has six blog most blogs', () => {
 		const result = listHelper.mostBlogs(listWithSixBlog)
+		expect(result).toEqual({ author: 'Robert C. Martin', blogs: 3 })
+	})
+
+	test('when list has six blog author who has more likes', () => {
+		const result = listHelper.mostTotalLikes(listWithSixBlog)
+		expect(result).toEqual({ author: 'Edsger W. Dijkstra', likes: 17 })
 	})
 
 })
